@@ -18,7 +18,7 @@ do
     case $choice in
         1)
             # 安装 Git 和 Golang
-            yum install git golang || apt install git golang || pkg install git golang
+            yum install git golang || apt install git golang || dnf install screen || pkg install git golang
             # 安装 screen 避免任务被系统杀死
             apt-get install screen || yum install screen || dnf install screen || pkg install screen
             # 编译架构
