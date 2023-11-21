@@ -1,50 +1,57 @@
 #!/bin/bash
-
-function install() {
-    echo "正在安装Git、Golang和screen..."
-    apt-get update
-    apt-get install -y git golang screen
-    echo "安装完成"
-}
-
-function start() {
-    echo "请输入目标URL:"
-    read url
-    git clone https://github.com/maintell/webBenchmark.git
-    cd webBenchmark
-    go build
-    chmod +x webBenchmark
-    ./webBenchmark -c 32 -s $url &
-    echo "webBenchmark已开始运行，目标URL为：$url"
-}
-
-function stop() {
-    screen -r webBenchmark
-    screen -d webBenchmark
-    pid=$(ps aux | grep webBenchmark | grep -v grep | awk '{print $2}')
-    if [ -n "$pid" ]; then
-        kill -9 $pid
-        echo "已停止webBenchmark进程，PID为：$pid"
-    else
-        echo "未找到webBenchmark进程"
-    fi
-}
-
-install
-
-echo "请选择操作："
-echo "1. 开始运行"
-echo "2. 停止运行"
-read -p "请输入选项（1或2）：" option
-
-case $option in
-    1)
-        start
-        ;;
-    2)
-        stop
-        ;;
-    *)
-        echo "无效的选项"
-        ;;
-esac
+# 一键命令脚本
+echo "欢迎使用一键命令脚本，您可以选择以下操作："
+running=true # 添加一个变量
+while $running # 修改 while 循环的条件
+do # 添加一个 do
+    echo "1. 开始运行 webBenchmark"
+    echo "2. 停止运行 webBenchmark"
+    echo "3. 退出脚本"
+    read -p "请输入您的选择（1/2/3）：" choice
+    case $choice in
+        1)
+            # 安装 Git 和 Golang
+            yum install git golang || apt install git golang || pkg install git golang
+            # 安装 screen 避免任务被系统杀死
+            apt-get install screen
+            # 创建一个名为 webBenchmark 的窗口任务
+            screen -S webBenchmark -d -m
+            # 编译架构
+            git clone https://github.com/maintell/webBenchmark.git
+            cd webBenchmark
+            go build
+            # 赋予权限
+            chmod +x webBenchmark
+            # 提供一个用户键入 url 的界面
+            read -p "请输入您要测试的 url：" url
+            # 直接开搞
+            ./webBenchmark -c 32 -s $url &
+            echo "webBenchmark 已经开始运行，您可以按 Ctrl+A+D 退出 screen 窗口任务，或者输入 2 停止运行 webBenchmark"
+            ;;
+        2)
+            # 回到 screen 窗口任务
+            screen -r webBenchmark
+            # 列出该进程
+            ps aux | grep webBenchmark
+            # 获取该进程的 pid
+            pid=$(ps aux | grep webBenchmark | awk '{print $2}') # 添加一个变量
+            if [ -n "$pid" ]; then
+                # 刷死这个进程
+                kill -9 $pid
+                echo "webBenchmark 已经停止运行，您可以输入 3 退出脚本"
+            else
+                echo "webBenchmark 没有在运行中"
+            fi
+            ;;
+        3)
+            # 退出脚本
+            echo "感谢您使用一键命令脚本，再见！"
+            running=false # 修改变量的值
+            exit 0
+            ;;
+        *)
+            # 输入错误
+            echo "您输入的选择不正确，请重新输入"
+            ;;
+    esac
+done # 添加一个 done
