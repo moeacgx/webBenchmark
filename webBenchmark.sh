@@ -14,8 +14,6 @@ do # 添加一个 do
             yum install git golang || apt install git golang || pkg install git golang
             # 安装 screen 避免任务被系统杀死
             apt-get install screen
-            # 创建一个名为 webBenchmark 的窗口任务
-            screen -S webBenchmark -d -m
             # 编译架构
             git clone https://github.com/maintell/webBenchmark.git
             cd webBenchmark
@@ -25,18 +23,18 @@ do # 添加一个 do
             # 提供一个用户键入 url 的界面
             read -p "请输入您要测试的 url：" url
             # 直接开搞
-            ./webBenchmark -c 32 -s $url &
+            screen -S webBenchmarkSession -dm bash -c "./webBenchmark -c 32 -s $url"
             echo "webBenchmark 已经开始运行，您可以按 Ctrl+A+D 退出 screen 窗口任务，或者输入 2 停止运行 webBenchmark"
             ;;
         2)
             # 回到 screen 窗口任务
-            screen -r webBenchmark
+            screen -r webBenchmarkSession
             # 列出该进程
             ps aux | grep webBenchmark
             # 获取该进程的 pid
             pid=$(ps aux | grep webBenchmark | awk '{print $2}') # 添加一个变量
             if [ -n "$pid" ]; then
-                # 刷死这个进程
+                # 杀死这个进程
                 kill -9 $pid
                 echo "webBenchmark 已经停止运行，您可以输入 3 退出脚本"
             else
