@@ -5,6 +5,30 @@ webBenchmark网络基准测试，网站性能测试，网站测压，剑皇
 webBenchmark 是一个用于测试网页服务器性能的工具，启用其他用途，后果自负。
 原作者的一键脚本支持的系统、架构有限，为了让所有的系统、架构都支持 webBenchmark ，所以本文采用编译的方法，直接编译到你自己的系统、架构里面，做到让所有系统、架构均可以进行 webBenchmark 测试。
 
+<details>
+<summary>使用BASH脚本安装</summary>
+
+
+打开终端，并导航到你想要将仓库克隆到的目录中。
+
+使用 git clone 命令克隆仓库。运行以下命令：
+
+git clone https://github.com/huliyoudiangou/webBenchmark.git
+
+进入克隆的仓库目录。运行以下命令：
+
+cd webBenchmark
+
+现在，你可以执行 webBenchmark.sh 脚本。运行以下命令：
+
+bash webBenchmark.sh
+
+</details>
+
+
+<details>
+<summary>手动安装</summary>
+
 
 第一步：安装 Git 和 Golang
 
@@ -63,3 +87,4 @@ ps aux | grep webBenchmark
 
 kill -9 pid
 
+</details>
