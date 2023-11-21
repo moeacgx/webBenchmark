@@ -5,18 +5,11 @@ webBenchmark网络基准测试，网站性能测试，网站测压，剑皇
 webBenchmark 是一个用于测试网页服务器性能的工具，启用其他用途，后果自负。
 原作者的一键脚本支持的系统、架构有限，为了让所有的系统、架构都支持 webBenchmark ，所以本文采用编译的方法，直接编译到你自己的系统、架构里面，做到让所有系统、架构均可以进行 webBenchmark 测试。
 
-一键脚本执行：
-
-手动执行：
 
 第一步：安装 Git 和 Golang
 
+yum install git golang || apt install git golang || pkg install git golang
 
-yum install git golang  #CentOS
-
-apt install git golang  #Debian/Ubuntu
-
-pkg install git golang  #Termux
 
 第二步：安装 screen 避免任务被系统杀死
 
