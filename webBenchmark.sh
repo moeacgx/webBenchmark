@@ -20,7 +20,7 @@ do
             # 安装 Git 和 Golang
             yum install git golang || apt install git golang || pkg install git golang
             # 安装 screen 避免任务被系统杀死
-            apt-get install screen
+            apt-get install screen || yum install screen || dnf install screen || pkg install screen
             # 编译架构
             git clone https://github.com/maintell/webBenchmark.git
             cd webBenchmark
@@ -36,13 +36,11 @@ do
         2)
             # 回到 screen 窗口任务
             screen -r webBenchmarkSession
-            # 列出该进程
-            ps aux | grep webBenchmark
             # 获取所有名为"webBenchmark"的进程的PID，并逐个杀死
             pids=$(pgrep -f "webBenchmark")
             for pid in $pids
             do
-                kill $pid
+                killall -9 webBenchmark
             done
             echo "webBenchmark 已经停止运行，您可以输入 3 退出脚本"
             ;;
