@@ -8,15 +8,15 @@ webBenchmark 是一个用于测试网页服务器性能的工具，启用其他�
 
 第一步：安装 Git 和 Golang
 
-yum install git golang || apt install git golang || pkg install git golang
+yum install git golang || apt install git golang || dnf install screen || pkg install git golang
 
 
 第二步：安装 screen 避免任务被系统杀死
 
 
-apt-get install screen #安装screen
+apt-get install screen || yum install screen || dnf install screen || pkg install screen
 
-screen -S webBenchmark #创建一个名为 webBenchmark 的窗口任务，命名可以自定义
+screen -S webBenchmarkSession #创建一个名为 webBenchmarkSession 的窗口任务，命名可以自定义
 
 
 第三步：编译架构
@@ -50,9 +50,9 @@ kill -9 pid
 
 screen -ls #获取当前任务
 
-screen -r webBenchmark #回到这个任务
+screen -r webBenchmarkSession #回到这个任务
 
-screen -d webBenchmark #关闭这个任务
+screen -d webBenchmarkSession #关闭这个任务
 
 注意，此时只是关闭了 screen 窗口任务，并没有停止咱们的 webBenchmark 任务
 列出该进程，执行：
