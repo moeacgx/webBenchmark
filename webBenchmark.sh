@@ -10,7 +10,7 @@ running=true
 while $running
 do
     echo "1. 开始运行 webBenchmark"
-    echo "2. 停止运行 webBenchmark"
+    echo "2. 停止运行 webBenchmark（运行后未正常退出，请使用 'Ctrl'+'C'退出当前界面）"
     echo "3. 退出脚本"
 
     read -p "请输入您的选择（1/2/3）：" choice
@@ -44,6 +44,11 @@ do
                 fi
             done
 
+            # 如果webBenchmark目录存在，则删除
+            if [ -d "webBenchmark" ]; then
+                rm -rf webBenchmark
+            fi
+
             # 编译架构
             git clone https://github.com/maintell/webBenchmark.git
             cd webBenchmark
@@ -71,18 +76,23 @@ do
                 continue
             fi
 
-            # 回到 screen 窗口任务
-            screen -r webBenchmarkSession
+            # 检查screen会话是否存在
+            if screen -list | grep -q "webBenchmarkSession"; then
+                # 回到 screen 窗口任务
+                screen -r webBenchmarkSession
 
-            # 关闭当前 screen 窗口
-            screen -X -S webBenchmarkSession quit
+                # 关闭当前 screen 窗口
+                screen -X -S webBenchmarkSession quit
+            fi
 
             # 获取所有名为"webBenchmark"的进程的PID，并逐个杀死
             pids=$(pgrep -f "webBenchmark")
-            for pid in $pids
-            do
-                kill -9 $pid
-            done
+            if [ ! -z "$pids" ]; then
+                for pid in $pids
+                do
+                    kill -9 $pid
+                done
+            fi
 
             echo "webBenchmark 已经停止运行，您可以输入 3 退出脚本"
             ;;
@@ -90,7 +100,9 @@ do
             # 退出脚本并回到root目录
             echo "感谢您使用一键命令脚本，再见！"
             running=false
-            cd $current_dir
+            if [ -d "$current_dir" ]; then
+                cd $current_dir
+            fi
             break
             ;;
         *)
