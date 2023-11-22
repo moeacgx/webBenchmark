@@ -15,11 +15,7 @@
 <details>
 <summary>一键运行脚本</summary>
 
-curl -O https://raw.githubusercontent.com/huliyoudiangou/webBenchmark/main/webBenchmark.sh
-
-chmod +x webBenchmark.sh
-
-./webBenchmark.sh
+curl -O https://raw.githubusercontent.com/huliyoudiangou/webBenchmark/main/webBenchmark.sh && chmod +x webBenchmark.sh && ./webBenchmark.sh
 
 </details>
 
