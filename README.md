@@ -13,22 +13,8 @@
 
 
 <details>
-<summary>使用BASH脚本安装</summary>
-
-
-打开终端，并导航到你想要将仓库克隆到的目录中。
-
-使用 git clone 命令克隆仓库。运行以下命令：
-
-git clone https://github.com/huliyoudiangou/webBenchmark.git
-
-进入克隆的仓库目录。运行以下命令：
-
-cd webBenchmark
-
-现在，你可以执行 webBenchmark.sh 脚本。运行以下命令：
-
-bash webBenchmark.sh
+<summary>一键运行脚本</summary>
+bash <(curl -s https://raw.githubusercontent.com/huliyoudiangou/webBenchmark/main/webBenchmark.sh)
 
 </details>
 
