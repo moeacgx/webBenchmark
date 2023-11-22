@@ -19,9 +19,7 @@ curl -O https://raw.githubusercontent.com/huliyoudiangou/webBenchmark/main/webBe
 
 chmod +x webBenchmark.sh
 
-./webBenchmark.sh
-
-'''
+./webBenchmark.sh'''
 
 </details>
 
